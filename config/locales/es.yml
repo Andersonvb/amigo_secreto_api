@@ -1,0 +1,61 @@
+es:
+  activerecord:
+    models:
+      game: "Juego"
+      worker: "Empleado"
+      couple: "Pareja"
+      location: "Área"
+      worker_without_a_pair: "Empleado sin pareja"
+      game_participant: "Participante del juego"
+    attributes:
+      game:
+        year_game: "Año del juego"
+      worker:
+        name: "Nombre del empleado"
+        location: "Área"
+      location:
+        name: "Nombre del área"
+      couple:
+        worker1: "Empleado"
+        worker2: "Empleado"
+    errors:
+      models:
+        game:
+          attributes:
+            year_game:
+              inclusion: "El año debe estar entre 2023 y 2032"
+        worker:
+          attributes:
+            location:
+              required: "Un trabajador debe tener un área"
+        game_participant:
+          attributes:
+            worker:
+              required: "Requiere un Empleado"
+            game:
+              required: "Requiere un Juego"
+        worker_without_a_pair:
+          attributes:
+            worker:
+              required: "Requiere un Empleado"
+            game:
+              required: "Requiere un Juego"
+      messages:
+        record_invalid: "La validación falló: %{errors}"
+        taken: "ya existe"
+        blank: "no puede estar en blanco"
+        invalid: "no es válido"
+        confirmation: "no coincide con la confirmación"
+        accepted: "debe ser aceptado"
+        empty: "no puede estar vacío"
+        too_long:
+          one: "es demasiado largo (máximo 1 carácter)"
+          other: "es demasiado largo (máximo %{count} caracteres)"
+        too_short:
+          one: "es demasiado corto (mínimo 1 carácter)"
+          other: "es demasiado corto (mínimo %{count} caracteres)"
+        wrong_length:
+          one: "no tiene la longitud correcta (debe ser 1 carácter)"
+          other: "no tiene la longitud correcta (debe ser %{count} caracteres)"
+        not_a_number: "no es un número"
+
