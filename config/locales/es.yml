@@ -3,10 +3,9 @@ es:
     models:
       game: "Juego"
       worker: "Empleado"
-      couple: "Pareja"
       location: "Área"
+      couple: "Pareja"
       worker_without_a_pair: "Empleado sin pareja"
-      game_participant: "Participante del juego"
     attributes:
       game:
         year_game: "Año del juego"
@@ -16,24 +15,23 @@ es:
       location:
         name: "Nombre del área"
       couple:
-        worker1: "Empleado"
-        worker2: "Empleado"
+        first_worker: "Primer empleado"
+        second_worker: "Segundo empleado"
+      worker_without_a_pair:
+        game: "Juego"
+        worker: "Empleado"
     errors:
       models:
         game:
+          base:
+            two_or_more_workers: "Debe haber al menos 2 jugadores para crear un juego"
           attributes:
             year_game:
               inclusion: "El año debe estar entre 2023 y 2032"
         worker:
           attributes:
             location:
-              required: "Un trabajador debe tener un área"
-        game_participant:
-          attributes:
-            worker:
-              required: "Requiere un Empleado"
-            game:
-              required: "Requiere un Juego"
+              required: "Un trabajador debe tener un área válida"
         worker_without_a_pair:
           attributes:
             worker:

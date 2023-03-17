@@ -6,24 +6,25 @@ class Game < ApplicationRecord
 
   has_many :couples, dependent: :destroy
 
-  after_save :create_couples
+  after_save :create_couples_and_worker_without_pair
 
   private
 
   def two_or_more_workers
-    errors.add(:base, 'Debe haber al menos 2 jugadores para crear un juego') if Worker.count < 2
+    errors.add(:base, I18n.t('activerecord.errors.models.game.base.two_or_more_workers')) if Worker.count < 2
   end
 
-  def create_couples
+  def create_couples_and_worker_without_pair
     workers = Worker.all.to_a
 
-    # Seleccionamos el empleado que no jugara este año
+    # Seleccionamos el empleado que no jugara este año.
     if workers.size.odd?
       worker_without_a_pair = select_worker_that_will_not_play(workers)
       workers.delete(worker_without_a_pair)
       create_and_save_worker_without_a_pair(worker_without_a_pair)
     end
 
+    # Generamos y creamos las parejas.
     couples = generate_couples(workers)
     create_and_save_couples(couples)
   end
