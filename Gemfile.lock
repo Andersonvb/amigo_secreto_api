@@ -106,6 +106,7 @@ GEM
     nio4r (2.5.8)
     nokogiri (1.14.2-x86_64-linux)
       racc (~> 1.4)
+    pg (1.4.6)
     puma (5.6.5)
       nio4r (~> 2.0)
     racc (1.6.2)
@@ -156,6 +157,7 @@ DEPENDENCIES
   bootsnap
   debug
   jbuilder
+  pg
   puma (~> 5.0)
   rails (~> 7.0.4, >= 7.0.4.3)
   sqlite3 (~> 1.4)
