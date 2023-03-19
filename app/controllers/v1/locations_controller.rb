@@ -1,11 +1,11 @@
 class V1::LocationsController < ApplicationController
+  before_action :set_location, only: [:show, :update, :destroy]
+
   def index
     @locations = Location.all
   end
 
-  def show
-    @location = Location.find(params[:id])
-  end
+  def show; end
 
   def create
     @location = Location.new(location_params)
@@ -18,8 +18,6 @@ class V1::LocationsController < ApplicationController
   end
 
   def update
-    @location = Location.find(params[:id])
-
     if @location.update(location_params)
       render @location
     else
@@ -28,12 +26,15 @@ class V1::LocationsController < ApplicationController
   end
 
   def destroy
-    @location = Location.find(params[:id])
     @location.destroy
     head :no_content
   end
 
   private
+
+  def set_location
+    @location = Location.find(params[:id])
+  end
 
   def location_params
     params.require(:location).permit(:name)

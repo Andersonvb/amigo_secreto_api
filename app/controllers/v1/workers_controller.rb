@@ -1,11 +1,11 @@
 class V1::WorkersController < ApplicationController
+  before_action :set_worker, only: [:show, :update, :destroy]
+
   def index
     @workers = Worker.all
   end
 
-  def show
-    @worker = Worker.find(params[:id])
-  end
+  def show; end
 
   def create
     @worker = Worker.new(worker_params)
@@ -18,8 +18,6 @@ class V1::WorkersController < ApplicationController
   end
 
   def update
-    @worker = Worker.find(params[:id])
-
     if @worker.update(worker_params)
       render @worker
     else
@@ -28,12 +26,15 @@ class V1::WorkersController < ApplicationController
   end
 
   def destroy
-    @worker = Worker.find(params[:id])
     @worker.destroy
     head :no_content
   end
 
   private
+
+  def set_worker
+    @worker = Worker.find(params[:id])
+  end
 
   def worker_params
     params.require(:worker).permit(:name, :location_id)
