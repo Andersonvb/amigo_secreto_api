@@ -1,4 +1,4 @@
-class GamesController < ApplicationController
+class V1::GamesController < ApplicationController
   def index
     @games = Game.all
     @couples = Couple.all
