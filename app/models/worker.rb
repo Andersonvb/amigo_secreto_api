@@ -6,4 +6,5 @@ class Worker < ApplicationRecord
 
   has_many :couples_as_first_worker, foreign_key: 'first_worker_id', class_name: 'Couple', dependent: :destroy
   has_many :couples_as_second_worker, foreign_key: 'second_worker_id', class_name: 'Couple', dependent: :destroy
+  has_many :worker_without_a_pairs, dependent: :destroy
 end

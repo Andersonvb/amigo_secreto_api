@@ -27,6 +27,12 @@ class V1::LocationsController < ApplicationController
     end
   end
 
+  def destroy
+    @location = Location.find(params[:id])
+    @location.destroy
+    head :no_content
+  end
+
   private
 
   def location_params

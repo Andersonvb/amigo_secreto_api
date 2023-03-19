@@ -27,6 +27,12 @@ class V1::WorkersController < ApplicationController
     end
   end
 
+  def destroy
+    @worker = Worker.find(params[:id])
+    @worker.destroy
+    head :no_content
+  end
+
   private
 
   def worker_params
