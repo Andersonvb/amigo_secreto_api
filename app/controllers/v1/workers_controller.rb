@@ -17,6 +17,16 @@ class V1::WorkersController < ApplicationController
     end
   end
 
+  def update
+    @worker = Worker.find(params[:id])
+
+    if @worker.update(worker_params)
+      render @worker
+    else
+      render 'errors/error', locals: { object: @worker }, formats: :json
+    end
+  end
+
   private
 
   def worker_params

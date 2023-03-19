@@ -17,6 +17,16 @@ class V1::LocationsController < ApplicationController
     end
   end
 
+  def update
+    @location = Location.find(params[:id])
+
+    if @location.update(location_params)
+      render @location
+    else
+      render 'errors/error', locals: { object: @location }, formats: :json
+    end
+  end
+
   private
 
   def location_params
