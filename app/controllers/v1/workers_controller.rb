@@ -2,7 +2,7 @@ class V1::WorkersController < ApplicationController
   before_action :set_worker, only: [:show, :update, :destroy]
 
   def index
-    @workers = Worker.all
+    @workers = Worker.order(:id)
   end
 
   def show; end

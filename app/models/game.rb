@@ -15,7 +15,7 @@ class Game < ApplicationRecord
   end
 
   def create_couples_and_worker_without_pair
-    workers = Worker.all.to_a
+    workers = Worker.order(:id).to_a
 
     # Seleccionamos el empleado que no jugara este año.
     if workers.size.odd?
