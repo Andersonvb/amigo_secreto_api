@@ -20,7 +20,7 @@ class Game < ApplicationRecord
     # Seleccionamos el empleado que no jugara este año.
     if workers.size.odd?
       worker_without_a_pair = select_worker_that_will_not_play(workers)
-      workers.delete(worker_without_a_pair)
+      workers.delete(worker_without_a_pair) 
       create_and_save_worker_without_a_pair(worker_without_a_pair)
     end
 
@@ -32,13 +32,12 @@ class Game < ApplicationRecord
   # Selecciona un trabajador que no haya jugado el año anterior.
   def select_worker_that_will_not_play(workers)
     worker_without_a_pair = workers.sample
+    worker_without_a_pair_last_year = Game.find_by(year_game: year_game - 1)&.worker_without_a_pair&.worker
+    worker_without_a_pair_two_years_ago = Game.find_by(year_game: year_game - 2)&.worker_without_a_pair&.worker
 
-     # Verifica si existe un juego anterior
-    if Game.exists?(year_game: year_game - 1)
-      worker_without_a_pair_last_year = Game.find_by(year_game: year_game - 1).worker_without_a_pair&.worker
-
-       # Si el trabajador elegido jugó en el juego anterior, selecciona otro trabajador
-      select_worker_that_will_not_play(workers) if worker_without_a_pair == worker_without_a_pair_last_year
+    # Si el trabajador elegido jugó en el juego anterior o el juego antepasado, selecciona otro trabajador
+    if worker_without_a_pair == worker_without_a_pair_last_year || worker_without_a_pair == worker_without_a_pair_two_years_ago
+      worker_without_a_pair = select_worker_that_will_not_play(workers)
     end
 
     worker_without_a_pair
@@ -47,8 +46,8 @@ class Game < ApplicationRecord
   # Genera las parejas del juego.
   def generate_couples(workers)
     couple_combinations = generate_possible_couples(workers)
-    couples_last_year = load_couples_from_game(id - 1)
-    couples_two_years_ago = load_couples_from_game(id - 2)
+    couples_last_year = load_couples_from_game(year_game - 1)
+    couples_two_years_ago = load_couples_from_game(year_game - 2)
 
     possible_couples = couple_combinations - couples_last_year - couples_two_years_ago
 
@@ -56,8 +55,9 @@ class Game < ApplicationRecord
   end
 
   # Carga las parejas de un juego en especifico.
-  def load_couples_from_game(game_id)
-    couples = Couple.where(game_id: game_id).to_a
+  def load_couples_from_game(year_game)
+    game = Game.find_by(year_game: year_game)
+    couples = Couple.where(game_id: game&.id).to_a
     worker_pairs_from_couples(couples)
   end
 
