@@ -1,3 +1,5 @@
+require_relative '../../services/couples_creator_service'
+
 class V1::GamesController < ApplicationController
   def index
     @games = Game.all
@@ -13,6 +15,7 @@ class V1::GamesController < ApplicationController
     @game = Game.new(game_params)
 
     if @game.save
+      CouplesCreatorService.new(@game).call
       render @game
     else
       render 'errors/error', locals: { object: @game }, formats: :json
