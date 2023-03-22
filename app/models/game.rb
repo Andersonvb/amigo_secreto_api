@@ -31,27 +31,33 @@ class Game < ApplicationRecord
 
   # Selecciona un trabajador que no haya jugado el año anterior.
   def select_worker_that_will_not_play(workers)
-    worker_without_a_pair = workers.sample
-    worker_without_a_pair_last_year = Game.find_by(year_game: year_game - 1)&.worker_without_a_pair&.worker
-    worker_without_a_pair_two_years_ago = Game.find_by(year_game: year_game - 2)&.worker_without_a_pair&.worker
+    game_last_year = Game.find_by(year_game: year_game - 1)
+    game_two_years_ago = Game.find_by(year_game: year_game - 2)
+    game_next_year = Game.find_by(year_game: year_game + 1)
 
-    # Si el trabajador elegido jugó en el juego anterior o el juego antepasado, selecciona otro trabajador
-    if worker_without_a_pair == worker_without_a_pair_last_year || worker_without_a_pair == worker_without_a_pair_two_years_ago
-      worker_without_a_pair = select_worker_that_will_not_play(workers)
-    end
+    worker_last_year = game_last_year&.worker_without_a_pair&.worker
+    worker_two_years_ago = game_two_years_ago&.worker_without_a_pair&.worker
+    worker_next_year = game_next_year&.worker_without_a_pair&.worker
+
+    excluded_workers = [worker_last_year, worker_two_years_ago, worker_next_year].compact
+
+    possible_workers_without_pairs = workers.reject { |worker| excluded_workers.include?(worker) }
+    worker_without_a_pair = possible_workers_without_pairs.sample
 
     worker_without_a_pair
   end
 
   # Genera las parejas del juego.
   def generate_couples(workers)
-    couple_combinations = generate_possible_couples(workers)
+    possible_worker_combinations = generate_possible_couples(workers)
     couples_last_year = load_couples_from_game(year_game - 1)
     couples_two_years_ago = load_couples_from_game(year_game - 2)
 
-    possible_couples = couple_combinations - couples_last_year - couples_two_years_ago
+    possible_couples = possible_worker_combinations - couples_last_year - couples_two_years_ago
 
-    select_couples(possible_couples, workers)
+    selected_couples = select_couples(possible_couples, workers)
+
+    selected_couples
   end
 
   # Carga las parejas de un juego en especifico.
@@ -74,11 +80,11 @@ class Game < ApplicationRecord
   # Selecciona un conjunto de parejas de trabajadores sin repetir trabajadores
   def select_couples(couple_combinations, workers)
     number_of_couples = workers.size / 2
-    possible_set_of_couples = couple_combinations.combination(number_of_couples)
+    possible_combinations = couple_combinations.combination(number_of_couples)
 
     # Obtiene el conjunto de parejas en el cual no se repita ninguno.
-    possible_set_of_couples.find do |set_of_couples|
-      set_of_couples.flatten.uniq.length == set_of_couples.flatten.length
+    possible_combinations.find do |couples_set|
+      couples_set.flatten.uniq.length == couples_set.flatten.length
     end
   end
 
