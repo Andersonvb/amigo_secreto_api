@@ -16,7 +16,7 @@ class V1::GamesController < ApplicationController
 
     if @game.save
       if CouplesCreator.call(@game)
-        render @game
+        render :create, status: :created
       else
         @game.errors.add(:base, I18n.t('activerecord.errors.models.game.base.couples_not_possible'))
         render 'errors/error', locals: { object: @game }, formats: :json

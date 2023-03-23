@@ -19,7 +19,7 @@ class V1::LocationsController < ApplicationController
 
   def update
     if @location.update(location_params)
-      render @location
+      render :create, status: :created
     else
       render 'errors/error', locals: { object: @location }, formats: :json
     end

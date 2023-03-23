@@ -19,7 +19,7 @@ class V1::WorkersController < ApplicationController
 
   def update
     if @worker.update(worker_params)
-      render @worker
+      render :create, status: :created
     else
       render 'errors/error', locals: { object: @worker }, formats: :json
     end
