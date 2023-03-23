@@ -15,7 +15,7 @@ class V1::GamesController < ApplicationController
     @game = Game.new(game_params)
 
     if @game.save
-      CouplesCreatorService.new(@game).call
+      CouplesCreator.call(@game)
       render @game
     else
       render 'errors/error', locals: { object: @game }, formats: :json

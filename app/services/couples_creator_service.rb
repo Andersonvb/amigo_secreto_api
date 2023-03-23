@@ -1,4 +1,6 @@
-class CouplesCreatorService
+require_relative './application_service'
+
+class CouplesCreator < ApplicationService
   def initialize(game)
     @game = game
   end
