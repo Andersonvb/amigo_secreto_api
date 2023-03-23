@@ -25,6 +25,7 @@ es:
         game:
           base:
             two_or_more_workers: "Debe haber al menos 2 jugadores para crear un juego"
+            couples_not_possible: "No se pueden crear parejas para este año"
           attributes:
             year_game:
               inclusion: "El año debe estar entre 2023 y 2032"

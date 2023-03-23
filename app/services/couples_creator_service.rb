@@ -18,12 +18,12 @@ class CouplesCreator < ApplicationService
     if workers.size.odd?
       worker_without_a_pair = select_worker_that_will_not_play(workers)
       workers.delete(worker_without_a_pair) 
-      create_and_save_worker_without_a_pair(worker_without_a_pair)
+      worker_without_a_pair.nil? ? nil : create_and_save_worker_without_a_pair(worker_without_a_pair)
     end
 
     # Generamos y creamos las parejas.
     couples = generate_couples(workers)
-    create_and_save_couples(couples)
+    couples.nil? ? nil : create_and_save_couples(couples)
   end
 
   # Selecciona un trabajador que no haya jugado el año anterior.
@@ -47,10 +47,13 @@ class CouplesCreator < ApplicationService
   # Genera las parejas del juego.
   def generate_couples(workers)
     possible_worker_combinations = generate_possible_couples(workers)
+
     couples_last_year = load_couples_from_game(@game.year_game - 1)
     couples_two_years_ago = load_couples_from_game(@game.year_game - 2)
+    couples_next_year = load_couples_from_game(@game.year_game + 1)
+    couples_year_after_next = load_couples_from_game(@game.year_game + 2)
 
-    possible_couples = possible_worker_combinations - couples_last_year - couples_two_years_ago
+    possible_couples = possible_worker_combinations - couples_last_year - couples_two_years_ago - couples_next_year - couples_year_after_next
 
     selected_couples = select_couples(possible_couples, workers)
 
@@ -96,5 +99,4 @@ class CouplesCreator < ApplicationService
   def create_and_save_worker_without_a_pair(worker_without_a_pair)
     WorkerWithoutAPair.create(game_id: @game.id, worker_id: worker_without_a_pair.id).save
   end
-
 end
