@@ -97,6 +97,6 @@ class CouplesCreator < ApplicationService
 
   # Crea y guarda en la base de datos un trabajador sin pareja.
   def create_and_save_worker_without_a_pair(worker_without_a_pair)
-    WorkerWithoutAPair.create(game_id: @game.id, worker_id: worker_without_a_pair.id).save
+    WorkerWithoutAPair.create(game_id: @game.id, worker_id: worker_without_a_pair.id)
   end
 end
