@@ -18,7 +18,7 @@ class CouplesCreator < ApplicationService
     if workers.size.odd?
       worker_without_a_pair = select_worker_that_will_not_play(workers)
       workers.delete(worker_without_a_pair) 
-      worker_without_a_pair.nil? ? nil : create_and_save_worker_without_a_pair(worker_without_a_pair)
+      create_and_save_worker_without_a_pair(worker_without_a_pair)
     end
 
     # Generamos y creamos las parejas.

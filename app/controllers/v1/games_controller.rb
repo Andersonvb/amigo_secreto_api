@@ -3,8 +3,6 @@ require_relative '../../services/couples_creator_service'
 class V1::GamesController < ApplicationController
   def index
     @games = Game.order(:year_game)
-    @couples = Couple.all
-    @workers_without_a_pair = WorkerWithoutAPair.all
   end
 
   def show

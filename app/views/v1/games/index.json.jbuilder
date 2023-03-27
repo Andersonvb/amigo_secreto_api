@@ -4,7 +4,7 @@ json.data do
     json.game do
 
       json.set! "couples" do
-        json.array!(@couples.select { |couple| couple.game_id == game.id }) do |couple|
+        json.array!(game.couples) do |couple|
           json.set! "couple_#{couple.id}" do
             json.first_player_name couple.first_worker.name
             json.first_player_id couple.first_worker.id
@@ -17,8 +17,8 @@ json.data do
       json.year_game game.year_game
 
       json.not_play do
-        if @workers_without_a_pair.find { |worker| worker.game_id == game.id }
-          json.worker @workers_without_a_pair.find { |worker| worker.game_id == game.id }.worker.name
+        if game.worker_without_a_pair
+          json.worker game.worker_without_a_pair.worker.name
           json.not_play game.year_game
         end
       end
