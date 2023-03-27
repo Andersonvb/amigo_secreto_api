@@ -16,7 +16,7 @@ class CouplesCreator < ApplicationService
 
     # Seleccionamos el empleado que no jugara este año.
     if workers.size.odd?
-      worker_without_a_pair = select_worker_that_will_not_play(workers)
+      worker_without_a_pair = select_worker_who_will_not_play(workers)
       workers.delete(worker_without_a_pair) 
       create_and_save_worker_without_a_pair(worker_without_a_pair)
     end
@@ -27,7 +27,7 @@ class CouplesCreator < ApplicationService
   end
 
   # Selecciona un trabajador que no haya jugado el año anterior.
-  def select_worker_that_will_not_play(workers)
+  def select_worker_who_will_not_play(workers)
     game_last_year = Game.find_by(year_game: @game.year_game - 1)
     game_two_years_ago = Game.find_by(year_game: @game.year_game - 2)
     game_next_year = Game.find_by(year_game: @game.year_game + 1)
