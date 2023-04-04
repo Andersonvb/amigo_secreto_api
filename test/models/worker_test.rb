@@ -13,6 +13,12 @@ class WorkerTest < ActiveSupport::TestCase
     assert_equal 'string', Worker.column_for_attribute(:name).type.to_s, 'Correct name type'
   end
 
+  test 'location_id column' do
+    assert Worker.column_names.include?('location_id') 
+
+    assert_equal 'integer', Worker.column_for_attribute(:location_id).type.to_s, 'Correct name type'
+  end
+
   # Associations
   test 'belongs_to :location relation' do
     location = locations(:location_one)
