@@ -7,3 +7,7 @@ worker_one:
 worker_two:
   name: worker_two
   location: location_two
+
+worker_three:
+  name: worker_three
+  location: location_two

@@ -34,8 +34,9 @@ class WorkerTest < ActiveSupport::TestCase
 
   test 'has_many :workers_without_a_pair relation' do
     worker_without_a_pair = worker_without_a_pairs(:worker_one)
+    worker_three = workers(:worker_three)
 
-    assert_equal worker_without_a_pair, @worker_one.worker_without_a_pairs.first, 'relation between worker and couple'
+    assert_equal worker_without_a_pair, worker_three.worker_without_a_pairs.first, 'relation between worker and couple'
   end
 
   # Validations
