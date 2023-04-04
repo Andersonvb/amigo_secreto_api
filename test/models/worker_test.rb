@@ -41,11 +41,21 @@ class WorkerTest < ActiveSupport::TestCase
     assert @worker_one.errors[:name].present?, 'error without name'
   end
 
+  test 'valid with name and location' do
+    assert @worker_one.valid?
+  end
+
   test 'invalid name length' do
     @worker_one.name = 'An'
 
     refute @worker_one.valid?
     assert @worker_one.errors[:name].present?, 'error with too short name'
+  end
+
+  test 'valid name length' do
+    @worker_one.name = 'And'
+
+    assert @worker_one.valid?
   end
 
   test 'invalid name with unsafe characters' do
