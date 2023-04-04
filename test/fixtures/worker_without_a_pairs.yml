@@ -1,1 +1,4 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+worker_one:
+  game: game_one
+  worker: worker_one
