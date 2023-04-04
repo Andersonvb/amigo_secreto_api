@@ -26,12 +26,22 @@ class LocationTest < ActiveSupport::TestCase
     refute @location.valid?
     assert @location.errors[:name].present?, 'error without name'
   end
+
+  test 'valid with name' do
+    assert @location.valid?
+  end
   
   test 'invalid name length' do
     @location.name = 'An'
 
     refute @location.valid?
     assert @location.errors[:name].present?, 'error with too short name'
+  end
+
+  test 'valid name length' do
+    @location.name = 'And'
+
+    assert @location.valid?
   end
 
   test 'invalid name with unsafe characters' do
