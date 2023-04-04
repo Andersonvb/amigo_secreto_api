@@ -6,4 +6,4 @@ worker_one:
 
 worker_two:
   name: worker_two
-  location: worker_two
+  location: location_two
