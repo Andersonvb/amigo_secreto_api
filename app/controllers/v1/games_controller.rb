@@ -15,7 +15,7 @@ class V1::GamesController < ApplicationController
     if GameCreator.call(@game)
       render :create, status: :created
     else
-      render 'errors/error', locals: { object: @game }, formats: :json
+      render 'errors/error', locals: { object: @game }, formats: :json, status: :unprocessable_entity
     end
   end
 
