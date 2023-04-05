@@ -1,5 +1,5 @@
 require_relative './application_service'
-require_relative './couples_creator_service'
+require_relative './couples_creator'
 
 class GameCreator < ApplicationService
   def initialize(game)

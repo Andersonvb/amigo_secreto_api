@@ -21,6 +21,7 @@ class CouplesCreator < ApplicationService
     end
 
     couples = generate_couples(workers)
+
     couples.nil? ? nil : create_and_save_couples(couples)
   end
 

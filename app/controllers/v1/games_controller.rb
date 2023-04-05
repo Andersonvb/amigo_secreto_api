@@ -1,4 +1,4 @@
-require_relative '../../services/couples_creator_service'
+require_relative '../../services/couples_creator'
 
 class V1::GamesController < ApplicationController
   def index
