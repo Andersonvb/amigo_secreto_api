@@ -13,7 +13,7 @@ class V1::WorkersController < ApplicationController
     if @worker.save
       render @worker
     else
-      render 'errors/error', locals: { object: @worker }, formats: :json
+      render 'errors/error', locals: { object: @worker }, formats: :json, status: :unprocessable_entity
     end
   end
 
@@ -21,7 +21,7 @@ class V1::WorkersController < ApplicationController
     if @worker.update(worker_params)
       render :create, status: :created
     else
-      render 'errors/error', locals: { object: @worker }, formats: :json
+      render 'errors/error', locals: { object: @worker }, formats: :json, status: :unprocessable_entity
     end
   end
 

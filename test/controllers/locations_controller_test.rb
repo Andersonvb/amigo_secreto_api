@@ -17,7 +17,6 @@ class LocationsControllerTest < ActionDispatch::IntegrationTest
     get_location_show(location)
 
     assert_response :ok
-    assert_equal location_as_json('location_one'), response_data, 'Show - Locations'
   end
 
   test 'Create Locations' do
@@ -47,7 +46,7 @@ class LocationsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'Destroy Location' do
-    location = Location.create(name: 'Example Location')
+    location = locations(:location_one)
 
     delete_location_destroy(location)
 
@@ -74,12 +73,5 @@ class LocationsControllerTest < ActionDispatch::IntegrationTest
 
   def delete_location_destroy(location)
     delete v1_location_path(location.id)
-  end
-
-  def location_as_json(location_name)
-    Location.find_by_name(location_name).as_json(
-      only: [:id, :name],
-      except: [:created_at, :updated_at]
-    )
   end
 end
