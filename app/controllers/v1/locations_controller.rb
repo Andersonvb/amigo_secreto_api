@@ -13,15 +13,15 @@ class V1::LocationsController < ApplicationController
     if @location.save
       render @location
     else
-      render 'errors/error', locals: { object: @location }, formats: :json
+      render 'errors/error', locals: { object: @location }, formats: :json, status: :unprocessable_entity
     end
   end
 
   def update
     if @location.update(location_params)
-      render :create, status: :created
+      render :create, status: :ok
     else
-      render 'errors/error', locals: { object: @location }, formats: :json
+      render 'errors/error', locals: { object: @location }, formats: :json, status: :unprocessable_entity
     end
   end
 
