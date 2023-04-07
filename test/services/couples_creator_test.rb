@@ -3,11 +3,11 @@ require_relative '../../app/services/couples_creator.rb'
 
 class CouplesCreatorTest < ActiveSupport::TestCase
   def setup
-    @game = games(:game_one)
+    @game = Game.create(year_game: 2024)
     Couple.destroy_all
   end
 
-  test 'Create couples ssuccessfully' do
+  test 'Create couples successfully' do
     couples_created = CouplesCreator.call(@game)
 
     assert couples_created
@@ -15,12 +15,11 @@ class CouplesCreatorTest < ActiveSupport::TestCase
   end
 
   test 'Not possible couples' do
-    Worker.last.destroy
+    workers(:worker_three).destroy
     
-    game_two = Game.create(year_game: 2024)
+    new_game = Game.create(year_game: 2025)
 
-    CouplesCreator.call(@game)
-
-    refute CouplesCreator.call(game_two)
+    assert CouplesCreator.call(@game)
+    refute CouplesCreator.call(new_game)
   end
 end
