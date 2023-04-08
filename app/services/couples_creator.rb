@@ -22,7 +22,7 @@ class CouplesCreator < ApplicationService
 
     couples = generate_couples(workers)
 
-    couples.nil? ? nil : create_and_save_couples(couples)
+    couples.nil? || couples.empty? ? nil : create_and_save_couples(couples)
   end
 
   def select_worker_who_will_not_play(workers)

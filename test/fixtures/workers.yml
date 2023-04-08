@@ -11,3 +11,7 @@ worker_two:
 worker_three:
   name: worker_three
   location: location_two
+
+worker_four:
+  name: worker_four
+  location: location_one
