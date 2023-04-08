@@ -5,22 +5,22 @@ class GamesControllerTest < ActionDispatch::IntegrationTest
   include GameSupport
   include GameAsserts
   
-  test 'Index Games' do
+  test 'get index: is successful' do
     get_games_index
 
-    assert_response :ok
+    assert_response :success
     assert_equal Game.all.size, response_data.size, 'Game - Index'
   end
 
-  test 'Show Games' do
+  test 'get show: is successful' do
     game = games(:game_one)
 
     get_game_show(game)
 
-    assert_response :ok
+    assert_response :success
   end
 
-  test 'Create Games' do
+  test 'post create: successful' do
     params = game_params
 
     post_games_create(params)
@@ -29,7 +29,7 @@ class GamesControllerTest < ActionDispatch::IntegrationTest
     game_response_asserts
   end
 
-  test 'Invalid Create Games' do
+  test 'post create: invalid params' do
     params = invalid_game_params
 
     post_games_create(params)
