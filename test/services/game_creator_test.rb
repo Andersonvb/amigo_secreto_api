@@ -2,38 +2,38 @@ require 'test_helper'
 require_relative '../../app/services/game_creator.rb'
 
 class GameCreatorTest < ActiveSupport::TestCase
+  include GameCreatorAsserts
+
   def setup
+    Game.destroy_all
     @game = Game.new(year_game: 2024)
   end
 
-  test 'Game is created successfully' do
-    assert GameCreator.call(@game)
-    assert @game.persisted?
+  test 'game is created successfully' do
+    game_creator_asserts(@game)
   end
 
-  test 'Game creation with invalid year' do
+  test 'game creation with invalid year' do
     @game.year_game = 2019
 
-    refute GameCreator.call(@game)
-    refute @game.persisted?
+    game_creator_failing_asserts(@game)
   end
 
-  test 'Repeated year' do
+  test 'repeated year' do
     new_game = @game.clone
 
-    assert GameCreator.call(@game)    
-    assert @game.persisted?
-    refute GameCreator.call(new_game)
-    refute new_game.persisted?
+    game_creator_asserts(@game)
+    game_creator_failing_asserts(new_game)
+
   end
 
-  test 'Game creation in a year without possible couples' do 
-    Worker.last.destroy
+  test 'game creation in a year without possible couples' do 
+    workers(:worker_three).destroy
+    workers(:worker_four).destroy
 
     new_game = Game.new(year_game: 2025)
 
-    assert GameCreator.call(@game)
-    assert @game.persisted?
-    #GameCreator.call(new_game)
+    game_creator_asserts(@game)
+    game_creator_failing_asserts(new_game)
   end
 end
