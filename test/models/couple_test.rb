@@ -5,7 +5,6 @@ class CoupleTest < ActiveSupport::TestCase
     @couple = couples(:couple_one)
   end
 
-  # BD
   test 'game column' do
     assert Couple.column_names.include?('game_id') 
 
@@ -24,7 +23,6 @@ class CoupleTest < ActiveSupport::TestCase
     assert_equal 'integer', Couple.column_for_attribute(:second_worker_id).type.to_s, 'Correct name type'
   end
 
-  # Associations
   test 'belongs_to :game relation' do
     game = games(:game_one)
 
@@ -43,7 +41,6 @@ class CoupleTest < ActiveSupport::TestCase
     assert_equal worker_two, @couple.second_worker, 'relation between couple and game'
   end
 
-  # Validations
   test 'invalid without game' do
     @couple.game = nil
 

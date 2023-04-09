@@ -5,21 +5,18 @@ class LocationTest < ActiveSupport::TestCase
     @location = locations(:location_one)
   end
 
-  # DB
   test 'name column' do
     assert Location.column_names.include?('name') 
 
     assert_equal 'string', Location.column_for_attribute(:name).type.to_s, 'Correct name type'
   end
 
-  # Associations
   test 'has_many :workers relation' do
     worker = workers(:worker_one)
 
     assert_equal @location, worker.location, 'relation between worker and location'
   end
 
-  # Validations
   test 'invalid without name' do
     @location.name = nil
 

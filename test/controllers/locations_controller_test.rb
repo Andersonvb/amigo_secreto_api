@@ -5,30 +5,30 @@ class LocationsControllerTest < ActionDispatch::IntegrationTest
   include LocationSupport
   include LocationAsserts
 
-  test 'Index Locations' do
+  test 'get index: is successful' do
     get_locations_index
 
-    assert_response :ok
+    assert_response :success
     assert_equal Location.all.size, response_data.size, 'Index - Locations'
   end
 
-  test 'Show Locations' do
+  test 'get show: is successful' do
     location = locations(:location_one)
     get_location_show(location)
 
-    assert_response :ok
+    assert_response :success
   end
 
-  test 'Create Locations' do
+  test 'post create: successful' do
     params = location_params
 
     post_location_create(params)
 
-    assert_response :ok
+    assert_response :success
     location_response_asserts
   end
 
-  test 'Invalid Create Locations' do
+  test 'post create: invalid params' do
     params = invalid_location_params
 
     post_location_create(params)
@@ -36,16 +36,24 @@ class LocationsControllerTest < ActionDispatch::IntegrationTest
     assert_response :unprocessable_entity
   end
 
-  test 'Update Locations' do
+  test 'put update: successful' do
     params = location_params
 
     put_location_update(locations(:location_one).id, params)
 
-    assert_response :ok
+    assert_response :success
     location_response_asserts
   end
 
-  test 'Destroy Location' do
+  test 'put update: invalid params' do
+    params = invalid_location_params
+
+    put_location_update(locations(:location_one).id, params)
+
+    assert_response :unprocessable_entity
+  end
+
+  test 'delete destroy: successful' do
     location = locations(:location_one)
 
     delete_location_destroy(location)

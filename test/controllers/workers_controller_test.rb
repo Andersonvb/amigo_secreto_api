@@ -5,20 +5,20 @@ class WorkersControllerTest < ActionDispatch::IntegrationTest
   include WorkerSupport
   include WorkerAsserts
   
-  test 'Index Workers' do
+  test 'get index: success' do
     get_workers_index
 
-    assert_response :ok
+    assert_response :success
   end
 
-  test 'Show Workers' do
+  test 'get show: success' do
     worker = workers(:worker_one)
     get_worker_show(worker)
 
-    assert_response :ok
+    assert_response :success
   end
 
-  test 'Create Workers' do
+  test 'post create: success' do
     params = worker_params
 
     post_worker_create(params)
@@ -27,7 +27,7 @@ class WorkersControllerTest < ActionDispatch::IntegrationTest
     worker_response_asserts
   end
 
-  test 'Invalid Create Worker' do
+  test 'post create: invalid params' do
     params = invalid_worker_params
 
     post_worker_create(params)
@@ -35,7 +35,7 @@ class WorkersControllerTest < ActionDispatch::IntegrationTest
     assert_response :unprocessable_entity
   end
 
-  test 'Update Workers' do
+  test 'put update: success' do
     params = worker_params
 
     put_worker_update(workers(:worker_one).id, params)
@@ -44,7 +44,7 @@ class WorkersControllerTest < ActionDispatch::IntegrationTest
     worker_response_asserts
   end
 
-  test 'Destroy Workers' do
+  test 'delete destroy: success' do
     worker = workers(:worker_one)
 
     delete_worker_destroy(worker)

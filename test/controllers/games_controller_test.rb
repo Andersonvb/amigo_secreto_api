@@ -5,14 +5,14 @@ class GamesControllerTest < ActionDispatch::IntegrationTest
   include GameSupport
   include GameAsserts
   
-  test 'get index: is successful' do
+  test 'get index: successful' do
     get_games_index
 
     assert_response :success
     assert_equal Game.all.size, response_data.size, 'Game - Index'
   end
 
-  test 'get show: is successful' do
+  test 'get show: successful' do
     game = games(:game_one)
 
     get_game_show(game)

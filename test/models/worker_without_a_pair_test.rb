@@ -5,7 +5,6 @@ class WorkerWithoutAPairTest < ActiveSupport::TestCase
     @worker_without_pair = worker_without_a_pairs(:worker_one)
   end
 
-  # DB
   test 'game_id column' do
     assert WorkerWithoutAPair.column_names.include?('game_id') 
 
@@ -18,7 +17,6 @@ class WorkerWithoutAPairTest < ActiveSupport::TestCase
     assert_equal 'integer', WorkerWithoutAPair.column_for_attribute(:worker_id).type.to_s, 'Correct name type'
   end
 
-  # Associations
   test 'belongs_to :game relation' do
     game = games(:game_one)
 
@@ -31,7 +29,6 @@ class WorkerWithoutAPairTest < ActiveSupport::TestCase
     assert_equal worker, @worker_without_pair.worker
   end
 
-  # Validations
   test 'invalid without game' do
     @worker_without_pair.game = nil
 

@@ -5,14 +5,12 @@ class GameTest < ActiveSupport::TestCase
     @game = games(:game_one)
   end
 
-  # DB
   test 'year_game column' do
     assert Game.column_names.include?('year_game') 
 
     assert_equal 'integer', Game.column_for_attribute(:year_game).type.to_s, 'Correct name type'
   end
 
-  # Associations
   test 'has_one :worker_without_a_pair relation' do 
     worker = worker_without_a_pairs(:worker_one)
 
@@ -25,7 +23,6 @@ class GameTest < ActiveSupport::TestCase
     assert_equal couple, @game.couples.first, 'relation between worker and location'
   end
 
-  # Validations
   test 'invalid without year_game' do
     @game.year_game = nil
 

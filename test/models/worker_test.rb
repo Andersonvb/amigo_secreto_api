@@ -6,7 +6,6 @@ class WorkerTest < ActiveSupport::TestCase
     @worker_two = workers(:worker_two)
   end
 
-  # DB
   test 'name column' do
     assert Worker.column_names.include?('name') 
 
@@ -19,7 +18,6 @@ class WorkerTest < ActiveSupport::TestCase
     assert_equal 'integer', Worker.column_for_attribute(:location_id).type.to_s, 'Correct name type'
   end
 
-  # Associations
   test 'belongs_to :location relation' do
     location = locations(:location_one)
 
@@ -38,8 +36,6 @@ class WorkerTest < ActiveSupport::TestCase
 
     assert_equal worker_without_a_pair, worker_three.worker_without_a_pairs.first, 'relation between worker and couple'
   end
-
-  # Validations
   
   test 'invalid without name' do
     @worker_one.name = nil
