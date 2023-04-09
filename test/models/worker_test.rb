@@ -36,6 +36,13 @@ class WorkerTest < ActiveSupport::TestCase
 
     assert_equal worker_without_a_pair, worker_three.worker_without_a_pairs.first, 'relation between worker and couple'
   end
+
+  test 'worker indexes' do
+    indexes = ::ActiveRecord::Base.connection.indexes(Worker.table_name)
+    location_id_index = indexes.find { |index| index.columns == ['location_id'] }
+
+    assert location_id_index.present?
+  end
   
   test 'invalid without name' do
     @worker_one.name = nil

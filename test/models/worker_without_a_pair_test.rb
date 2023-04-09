@@ -29,6 +29,15 @@ class WorkerWithoutAPairTest < ActiveSupport::TestCase
     assert_equal worker, @worker_without_pair.worker
   end
 
+  test 'worker_without_a_pair indexes' do
+    indexes = ::ActiveRecord::Base.connection.indexes(WorkerWithoutAPair.table_name)
+    game_id_index = indexes.find { |index| index.columns == ['game_id'] }
+    worker_id_index = indexes.find { |index| index.columns == ['worker_id'] }
+
+    assert game_id_index.present?
+    assert worker_id_index.present?
+  end
+
   test 'invalid without game' do
     @worker_without_pair.game = nil
 

@@ -41,6 +41,17 @@ class CoupleTest < ActiveSupport::TestCase
     assert_equal worker_two, @couple.second_worker, 'relation between couple and game'
   end
 
+  test 'couple indexes' do
+    indexes = ::ActiveRecord::Base.connection.indexes(Couple.table_name)
+    game_id_index = indexes.find { |index| index.columns == ['game_id'] }
+    first_worker_id_index = indexes.find { |index| index.columns == ['first_worker_id'] }
+    second_worker_id_index = indexes.find { |index| index.columns == ['second_worker_id'] }
+
+    assert game_id_index.present?
+    assert first_worker_id_index.present?
+    assert second_worker_id_index.present?
+  end
+
   test 'invalid without game' do
     @couple.game = nil
 
