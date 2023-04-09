@@ -23,7 +23,7 @@ class WorkersControllerTest < ActionDispatch::IntegrationTest
 
     post_worker_create(params)
 
-    assert_response :ok
+    assert_response :success
     worker_response_asserts
   end
 
@@ -42,6 +42,14 @@ class WorkersControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :created
     worker_response_asserts
+  end
+
+  test 'put update: invalid params' do
+    params = invalid_worker_params
+
+    put_worker_update(workers(:worker_one).id, params)
+
+    assert_response :unprocessable_entity
   end
 
   test 'delete destroy: success' do

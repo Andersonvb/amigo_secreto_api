@@ -11,7 +11,7 @@ class V1::WorkersController < ApplicationController
     @worker = Worker.new(worker_params)
 
     if @worker.save
-      render @worker
+      render @worker, status: :created
     else
       render 'errors/error', locals: { object: @worker }, formats: :json, status: :unprocessable_entity
     end
