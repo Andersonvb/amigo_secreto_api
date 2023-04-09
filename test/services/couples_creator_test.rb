@@ -46,7 +46,7 @@ class CouplesCreatorTest < ActiveSupport::TestCase
     couples_creator_failing_asserts(game)
   end
 
-  test 'not possible to create couples in two games in a row with only two workers (not possible combinations)' do
+  test 'cannot assign the same couples to consecutive games' do
     workers(:worker_three).destroy
     workers(:worker_four).destroy
     
