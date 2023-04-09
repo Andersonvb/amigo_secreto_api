@@ -10,13 +10,13 @@ class CouplesCreatorTest < ActiveSupport::TestCase
     WorkerWithoutAPair.destroy_all
   end
 
-  test 'Create couples successfully with even number of workers' do
+  test 'should create couples successfully with even number of workers' do
     game = Game.create(year_game: 2024)
 
     couples_creator_asserts(game)
   end
 
-  test 'Create couples successfully with odd number of workers' do
+  test 'should create couples successfully with odd number of workers' do
     workers(:worker_four).destroy
     
     game = Game.create(year_game: 2024)
@@ -24,7 +24,7 @@ class CouplesCreatorTest < ActiveSupport::TestCase
     couples_creator_asserts(game)
   end
 
-  test 'Create multiple game couples successfully' do
+  test 'should create multiple game couples successfully' do
     first_game = Game.create(year_game: 2024) 
     second_game = Game.create(year_game: 2025)
     third_game = Game.create(year_game: 2026) 
@@ -36,7 +36,7 @@ class CouplesCreatorTest < ActiveSupport::TestCase
     couples_creator_asserts(fourth_game)
   end
 
-  test 'Not possible to create couples with only one worker' do
+  test 'not possible to create couples with only one worker' do
     workers(:worker_two).destroy
     workers(:worker_three).destroy
     workers(:worker_four).destroy
@@ -46,7 +46,7 @@ class CouplesCreatorTest < ActiveSupport::TestCase
     couples_creator_failing_asserts(game)
   end
 
-  test 'Not possible to create two game couples in a row with only two workers' do
+  test 'not possible to create two game couples in a row with only two workers (not possible combinations)' do
     workers(:worker_three).destroy
     workers(:worker_four).destroy
     
