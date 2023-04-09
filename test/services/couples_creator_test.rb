@@ -24,7 +24,7 @@ class CouplesCreatorTest < ActiveSupport::TestCase
     couples_creator_asserts(game)
   end
 
-  test 'should create multiple game couples successfully' do
+  test 'should create multiple couples successfully' do
     first_game = Game.create(year_game: 2024) 
     second_game = Game.create(year_game: 2025)
     third_game = Game.create(year_game: 2026) 
@@ -46,7 +46,7 @@ class CouplesCreatorTest < ActiveSupport::TestCase
     couples_creator_failing_asserts(game)
   end
 
-  test 'not possible to create two game couples in a row with only two workers (not possible combinations)' do
+  test 'not possible to create couples in two games in a row with only two workers (not possible combinations)' do
     workers(:worker_three).destroy
     workers(:worker_four).destroy
     
