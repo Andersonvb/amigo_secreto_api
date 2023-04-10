@@ -1,3 +1,4 @@
+
 module GameAsserts
   def game_response_asserts
     game = Game.find_by_year_game(response_data['year_game'])

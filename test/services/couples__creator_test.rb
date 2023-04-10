@@ -1,3 +1,4 @@
+
 require 'test_helper'
 require_relative '../../app/services/couples_creator.rb'
 

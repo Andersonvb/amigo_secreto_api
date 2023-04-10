@@ -1,3 +1,4 @@
+
 module CouplesCreatorAsserts
   def couples_creator_asserts(game)
     couples_created = CouplesCreator.call(game)
